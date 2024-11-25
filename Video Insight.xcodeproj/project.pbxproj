@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		46CB935B2CF20A5300938D57 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 46CB935A2CF20A5300938D57 /* MarkdownUI */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		467818BC2CF1A801000BEA50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 467818A22CF1A800000BEA50 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 467818A92CF1A800000BEA50;
+			remoteInfo = "Video Insight";
+		};
+		467818C62CF1A801000BEA50 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 467818A22CF1A800000BEA50 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 467818A92CF1A800000BEA50;
+			remoteInfo = "Video Insight";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		467818AA2CF1A800000BEA50 /* Video Insight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Video Insight.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		467818BB2CF1A801000BEA50 /* Video InsightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Video InsightTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		467818C52CF1A801000BEA50 /* Video InsightUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Video InsightUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		467818AC2CF1A800000BEA50 /* Video Insight */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Video Insight";
+			sourceTree = "<group>";
+		};
+		467818BE2CF1A801000BEA50 /* Video InsightTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Video InsightTests";
+			sourceTree = "<group>";
+		};
+		467818C82CF1A801000BEA50 /* Video InsightUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Video InsightUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		467818A72CF1A800000BEA50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46CB935B2CF20A5300938D57 /* MarkdownUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467818B82CF1A801000BEA50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467818C22CF1A801000BEA50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		467818A12CF1A800000BEA50 = {
+			isa = PBXGroup;
+			children = (
+				467818AC2CF1A800000BEA50 /* Video Insight */,
+				467818BE2CF1A801000BEA50 /* Video InsightTests */,
+				467818C82CF1A801000BEA50 /* Video InsightUITests */,
+				467818AB2CF1A800000BEA50 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		467818AB2CF1A800000BEA50 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				467818AA2CF1A800000BEA50 /* Video Insight.app */,
+				467818BB2CF1A801000BEA50 /* Video InsightTests.xctest */,
+				467818C52CF1A801000BEA50 /* Video InsightUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		467818A92CF1A800000BEA50 /* Video Insight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 467818CF2CF1A801000BEA50 /* Build configuration list for PBXNativeTarget "Video Insight" */;
+			buildPhases = (
+				467818A62CF1A800000BEA50 /* Sources */,
+				467818A72CF1A800000BEA50 /* Frameworks */,
+				467818A82CF1A800000BEA50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				467818AC2CF1A800000BEA50 /* Video Insight */,
+			);
+			name = "Video Insight";
+			packageProductDependencies = (
+				46CB935A2CF20A5300938D57 /* MarkdownUI */,
+			);
+			productName = "Video Insight";
+			productReference = 467818AA2CF1A800000BEA50 /* Video Insight.app */;
+			productType = "com.apple.product-type.application";
+		};
+		467818BA2CF1A801000BEA50 /* Video InsightTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 467818D22CF1A801000BEA50 /* Build configuration list for PBXNativeTarget "Video InsightTests" */;
+			buildPhases = (
+				467818B72CF1A801000BEA50 /* Sources */,
+				467818B82CF1A801000BEA50 /* Frameworks */,
+				467818B92CF1A801000BEA50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				467818BD2CF1A801000BEA50 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				467818BE2CF1A801000BEA50 /* Video InsightTests */,
+			);
+			name = "Video InsightTests";
+			packageProductDependencies = (
+			);
+			productName = "Video InsightTests";
+			productReference = 467818BB2CF1A801000BEA50 /* Video InsightTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		467818C42CF1A801000BEA50 /* Video InsightUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 467818D52CF1A801000BEA50 /* Build configuration list for PBXNativeTarget "Video InsightUITests" */;
+			buildPhases = (
+				467818C12CF1A801000BEA50 /* Sources */,
+				467818C22CF1A801000BEA50 /* Frameworks */,
+				467818C32CF1A801000BEA50 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				467818C72CF1A801000BEA50 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				467818C82CF1A801000BEA50 /* Video InsightUITests */,
+			);
+			name = "Video InsightUITests";
+			packageProductDependencies = (
+			);
+			productName = "Video InsightUITests";
+			productReference = 467818C52CF1A801000BEA50 /* Video InsightUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		467818A22CF1A800000BEA50 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1610;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					467818A92CF1A800000BEA50 = {
+						CreatedOnToolsVersion = 16.1;
+					};
+					467818BA2CF1A801000BEA50 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 467818A92CF1A800000BEA50;
+					};
+					467818C42CF1A801000BEA50 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 467818A92CF1A800000BEA50;
+					};
+				};
+			};
+			buildConfigurationList = 467818A52CF1A800000BEA50 /* Build configuration list for PBXProject "Video Insight" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 467818A12CF1A800000BEA50;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				46CB93592CF20A5300938D57 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 467818AB2CF1A800000BEA50 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				467818A92CF1A800000BEA50 /* Video Insight */,
+				467818BA2CF1A801000BEA50 /* Video InsightTests */,
+				467818C42CF1A801000BEA50 /* Video InsightUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		467818A82CF1A800000BEA50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467818B92CF1A801000BEA50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467818C32CF1A801000BEA50 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		467818A62CF1A800000BEA50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467818B72CF1A801000BEA50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		467818C12CF1A801000BEA50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		467818BD2CF1A801000BEA50 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 467818A92CF1A800000BEA50 /* Video Insight */;
+			targetProxy = 467818BC2CF1A801000BEA50 /* PBXContainerItemProxy */;
+		};
+		467818C72CF1A801000BEA50 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 467818A92CF1A800000BEA50 /* Video Insight */;
+			targetProxy = 467818C62CF1A801000BEA50 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		467818CD2CF1A801000BEA50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		467818CE2CF1A801000BEA50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		467818D02CF1A801000BEA50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Video Insight/Video_Insight.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Video Insight/Preview Content\"";
+				DEVELOPMENT_TEAM = W94S87F4LJ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Qiu.Video-Insight";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		467818D12CF1A801000BEA50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Video Insight/Video_Insight.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Video Insight/Preview Content\"";
+				DEVELOPMENT_TEAM = W94S87F4LJ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Qiu.Video-Insight";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		467818D32CF1A801000BEA50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Qiu.Video-InsightTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Video Insight.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Video Insight";
+			};
+			name = Debug;
+		};
+		467818D42CF1A801000BEA50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Qiu.Video-InsightTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Video Insight.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Video Insight";
+			};
+			name = Release;
+		};
+		467818D62CF1A801000BEA50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Qiu.Video-InsightUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Video Insight";
+			};
+			name = Debug;
+		};
+		467818D72CF1A801000BEA50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Michael-Qiu.Video-InsightUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "Video Insight";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		467818A52CF1A800000BEA50 /* Build configuration list for PBXProject "Video Insight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467818CD2CF1A801000BEA50 /* Debug */,
+				467818CE2CF1A801000BEA50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		467818CF2CF1A801000BEA50 /* Build configuration list for PBXNativeTarget "Video Insight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467818D02CF1A801000BEA50 /* Debug */,
+				467818D12CF1A801000BEA50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		467818D22CF1A801000BEA50 /* Build configuration list for PBXNativeTarget "Video InsightTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467818D32CF1A801000BEA50 /* Debug */,
+				467818D42CF1A801000BEA50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		467818D52CF1A801000BEA50 /* Build configuration list for PBXNativeTarget "Video InsightUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				467818D62CF1A801000BEA50 /* Debug */,
+				467818D72CF1A801000BEA50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		46CB93592CF20A5300938D57 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/swift-markdown-ui";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		46CB935A2CF20A5300938D57 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 46CB93592CF20A5300938D57 /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 467818A22CF1A800000BEA50 /* Project object */;
+}
