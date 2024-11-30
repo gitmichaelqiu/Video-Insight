@@ -18,6 +18,7 @@ Video Insight is a macOS application that helps you analyze video content by ext
 - [ ] Store video anaysis history locally
 - [ ] Chat to Ollama in summary panel
 - [ ] Integrate video frames and summary into a document
+- [ ] Manually add or delete key frames
 
 ## Requirements
 
