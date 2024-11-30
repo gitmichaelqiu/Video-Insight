@@ -34,7 +34,7 @@ class OllamaService {
         request.timeoutInterval = 30
         
         let prompt = """
-        Summarize the provided text with the following format:
+        Summarize the provided text from a video with the following format:
 
         ## <concise and easy-to-read title>
 
@@ -43,17 +43,14 @@ class OllamaService {
         ### Key Takeaways
 
         - <several bullet points with the key takeaways, keep the bullet points as short as possible>
-
-        ---
         
         Some rules to follow precisely:
         - follow the format STRICTLY
         - REMEMBER to generate the title
         - NEVER come up with additional information
-        - NEVER mention the source of the text
+        - NEVER mention the source of the text (from a video)
+        - Because the text you received comes from the OCR of a video, it might contain errors. If they are not logical, you can ignore them.
 
-        ---
-        
         Here's the text to summarize:
 
         \(text)

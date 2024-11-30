@@ -4,7 +4,6 @@ import MarkdownUI
 struct SummaryView: View {
     let text: String
     let existingSummary: String?
-    let autoGenerate: Bool
     @ObservedObject var settings: Settings
     let onSummaryUpdate: (String) -> Void
     @State private var summary: String = ""
@@ -95,7 +94,7 @@ struct SummaryView: View {
             if let existing = existingSummary {
                 summary = existing
                 onSummaryUpdate(existing)
-            } else if autoGenerate {
+            } else {
                 await generateSummary()
             }
         }

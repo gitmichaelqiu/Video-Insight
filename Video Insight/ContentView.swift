@@ -7,7 +7,6 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
-import AppKit
 
 struct LeftSidebarView: View {
     @ObservedObject var videoProcessor: VideoProcessor
@@ -26,7 +25,6 @@ struct LeftSidebarView: View {
                     .onTapGesture {
                         selectedVideo = videoData.url
                     }
-                    .help(videoData.url.lastPathComponent)
                     .contextMenu {
                         Button(role: .destructive, action: {
                             videoProcessor.removeVideo(url: videoData.url)
@@ -36,7 +34,6 @@ struct LeftSidebarView: View {
                         }) {
                             Label("Remove", systemImage: "trash")
                         }
-                        .keyboardShortcut("d", modifiers: .command)
                     }
                     .background(selectedVideo == videoData.url ? Color.accentColor.opacity(0.1) : Color.clear)
                 }
@@ -98,7 +95,7 @@ struct DropZoneView: View {
             Image(systemName: "arrow.down.doc")
                 .font(.system(size: 32))
                 .foregroundStyle(isTargeted ? .blue : .gray)
-            Text("Drop video here")
+            Text("Drag video here")
                 .foregroundStyle(isTargeted ? .blue : .secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -135,27 +132,24 @@ struct ContentView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { activeSheet = .videoSummary }) {
-                    Label("Summarize Video", systemImage: "text.quote")
+                    Image(systemName: "text.quote")
                 }
                 .disabled(selectedVideo == nil)
                 .keyboardShortcut("s", modifiers: [.option, .shift])
-                .help("⌥⇧S")
             }
             
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { isShowingFilePicker = true }) {
-                    Label("Open Video", systemImage: "plus")
+                    Image(systemName: "plus")
                 }
                 .keyboardShortcut("o", modifiers: .command)
-                .help("⌘O")
             }
             
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { activeSheet = .settings }) {
-                    Label("Settings", systemImage: "gear")
+                    Image(systemName: "gear")
                 }
                 .keyboardShortcut(",", modifiers: .command)
-                .help("⌘,")
             }
         }
         .fileImporter(
@@ -197,9 +191,6 @@ struct ThreeColumnLayout: View {
     @Binding var selectedFrame: VideoProcessor.VideoFrame?
     @State private var showingDeleteConfirmation = false
     @State private var videoToDelete: URL?
-    @Environment(\.scenePhase) private var scenePhase
-    @FocusState private var isFocused: Bool
-    @State private var keyboardMonitor: Any?
     
     var selectedVideoData: VideoProcessor.VideoData? {
         selectedVideo.flatMap { url in
@@ -218,9 +209,8 @@ struct ThreeColumnLayout: View {
                 .toolbar {
                     ToolbarItem(placement: .navigation) {
                         Button(action: toggleSidebar) {
-                            Label("Toggle Sidebar", systemImage: "sidebar.left")
+                            Image(systemName: "sidebar.left")
                         }
-                        .help("⌘⇧L")
                     }
                 }
                 
@@ -231,7 +221,6 @@ struct ThreeColumnLayout: View {
                     } else if let frame = selectedFrame {
                         MainContentView(frame: frame, videoURL: selectedVideo, videoProcessor: videoProcessor, settings: settings)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .id(frame.id)
                     } else {
                         ContentPlaceholderView()
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -242,71 +231,41 @@ struct ThreeColumnLayout: View {
                 }
             }
             
+            Divider()
+            
             TimelineView(
                 videoProcessor: videoProcessor,
                 selectedVideo: selectedVideo,
-                selectedFrame: $selectedFrame,
-                goToCurrentFrame: {
-                    if let frame = selectedFrame {
-                        NotificationCenter.default.post(
-                            name: NSNotification.Name("GoToCurrentFrame"),
-                            object: frame
-                        )
-                    }
-                }
+                selectedFrame: $selectedFrame
             )
-            .frame(width: 200)
         }
-        .focused($isFocused)
-        .onChange(of: scenePhase) { newPhase in
-            if newPhase == .active {
-                isFocused = true
+        .onKeyPress(phases: .down) { event in
+            guard event.modifiers.contains(.command),
+                  !event.modifiers.contains(.shift),
+                  !event.modifiers.contains(.option),
+                  !event.modifiers.contains(.control)
+            else { return .ignored }
+            
+            switch event.key {
+                case .init("d"):
+                    if !videoProcessor.videos.isEmpty {
+                        videoToDelete = selectedVideo ?? videoProcessor.videos[0].url
+                        showingDeleteConfirmation = true
+                    }
+                    return .handled
+                case .init("1"): selectVideo(at: 0)
+                case .init("2"): selectVideo(at: 1)
+                case .init("3"): selectVideo(at: 2)
+                case .init("4"): selectVideo(at: 3)
+                case .init("5"): selectVideo(at: 4)
+                case .init("6"): selectVideo(at: 5)
+                case .init("7"): selectVideo(at: 6)
+                case .init("8"): selectVideo(at: 7)
+                case .init("9"): selectLastVideo()
+                default: return .ignored
             }
+            return .handled
         }
-        .background(
-            Menu("Hidden Menu") {
-                Button("Select Video 1") { selectVideo(at: 0) }
-                    .keyboardShortcut("1", modifiers: [.command])
-                Button("Select Video 2") { selectVideo(at: 1) }
-                    .keyboardShortcut("2", modifiers: [.command])
-                Button("Select Video 3") { selectVideo(at: 2) }
-                    .keyboardShortcut("3", modifiers: [.command])
-                Button("Select Video 4") { selectVideo(at: 3) }
-                    .keyboardShortcut("4", modifiers: [.command])
-                Button("Select Video 5") { selectVideo(at: 4) }
-                    .keyboardShortcut("5", modifiers: [.command])
-                Button("Select Video 6") { selectVideo(at: 5) }
-                    .keyboardShortcut("6", modifiers: [.command])
-                Button("Select Video 7") { selectVideo(at: 6) }
-                    .keyboardShortcut("7", modifiers: [.command])
-                Button("Select Video 8") { selectVideo(at: 7) }
-                    .keyboardShortcut("8", modifiers: [.command])
-                Button("Select Last Video") { selectLastVideo() }
-                    .keyboardShortcut("9", modifiers: [.command])
-                Button("Delete Video") { handleDelete() }
-                    .keyboardShortcut("d", modifiers: [.command])
-            }
-            .hidden()
-        )
-        .keyboardShortcut("l", modifiers: [.command, .shift])
-        .modifier(NumberShortcuts1to3(
-            videoProcessor: videoProcessor,
-            selectedVideo: $selectedVideo
-        ))
-        .modifier(NumberShortcuts4to6(
-            videoProcessor: videoProcessor,
-            selectedVideo: $selectedVideo
-        ))
-        .modifier(NumberShortcuts7to9(
-            videoProcessor: videoProcessor,
-            selectedVideo: $selectedVideo
-        ))
-        .modifier(DeleteShortcut(
-            videoProcessor: videoProcessor,
-            videoToDelete: $videoToDelete,
-            showingDeleteConfirmation: $showingDeleteConfirmation,
-            selectedVideo: $selectedVideo
-        ))
         .alert("Remove Video", isPresented: $showingDeleteConfirmation) {
             Button("Remove", role: .destructive) {
                 if let url = videoToDelete {
@@ -316,23 +275,12 @@ struct ThreeColumnLayout: View {
                     }
                 }
             }
-            .keyboardShortcut(.defaultAction)
-            
             Button("Cancel", role: .cancel) {
                 videoToDelete = nil
             }
-            .keyboardShortcut(.cancelAction)
         } message: {
             if let url = videoToDelete {
                 Text("Do you want to remove \(url.lastPathComponent)?")
-            }
-        }
-        .onAppear {
-            setupKeyboardShortcuts()
-        }
-        .onDisappear {
-            if let monitor = keyboardMonitor {
-                NSEvent.removeMonitor(monitor)
             }
         }
     }
@@ -341,147 +289,15 @@ struct ThreeColumnLayout: View {
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
     }
     
-    private func setupKeyboardShortcuts() {
-        keyboardMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-            guard event.modifierFlags.contains(.command) else { return event }
-            
-            if let keyChar = event.characters?.first {
-                switch keyChar {
-                case "1": 
-                    selectVideo(at: 0)
-                    return nil
-                case "2": 
-                    selectVideo(at: 1)
-                    return nil
-                case "3": 
-                    selectVideo(at: 2)
-                    return nil
-                case "4": 
-                    selectVideo(at: 3)
-                    return nil
-                case "5": 
-                    selectVideo(at: 4)
-                    return nil
-                case "6": 
-                    selectVideo(at: 5)
-                    return nil
-                case "7": 
-                    selectVideo(at: 6)
-                    return nil
-                case "8": 
-                    selectVideo(at: 7)
-                    return nil
-                case "9": 
-                    selectLastVideo()
-                    return nil
-                default: 
-                    return event
-                }
-            }
-            return event
-        }
-    }
-    
     private func selectVideo(at index: Int) {
-        guard !videoProcessor.videos.isEmpty else { return }
         if index < videoProcessor.videos.count {
             selectedVideo = videoProcessor.videos[index].url
         }
     }
     
     private func selectLastVideo() {
-        guard !videoProcessor.videos.isEmpty else { return }
-        selectedVideo = videoProcessor.videos.last?.url
-    }
-    
-    private func handleDelete() {
         if !videoProcessor.videos.isEmpty {
-            videoToDelete = selectedVideo ?? videoProcessor.videos[0].url
-            showingDeleteConfirmation = true
-        }
-    }
-}
-
-private struct NumberShortcuts1to3: ViewModifier {
-    let videoProcessor: VideoProcessor
-    @Binding var selectedVideo: URL?
-    
-    func body(content: Content) -> some View {
-        content
-            .keyboardShortcut(KeyEquivalent("1"), modifiers: [.command])
-            .keyboardShortcut(KeyEquivalent("2"), modifiers: [.command])
-            .keyboardShortcut(KeyEquivalent("3"), modifiers: [.command])
-            .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
-                NSApp.mainWindow?.makeFirstResponder(nil)
-            }
-    }
-    
-    private func selectVideo(at index: Int) {
-        guard !videoProcessor.videos.isEmpty else { return }
-        if index < videoProcessor.videos.count {
-            selectedVideo = videoProcessor.videos[index].url
-        }
-    }
-}
-
-private struct NumberShortcuts4to6: ViewModifier {
-    let videoProcessor: VideoProcessor
-    @Binding var selectedVideo: URL?
-    
-    func body(content: Content) -> some View {
-        content
-            .keyboardShortcut(KeyEquivalent("4"), modifiers: [.command])
-            .keyboardShortcut(KeyEquivalent("5"), modifiers: [.command])
-            .keyboardShortcut(KeyEquivalent("6"), modifiers: [.command])
-    }
-    
-    private func selectVideo(at index: Int) {
-        guard !videoProcessor.videos.isEmpty else { return }
-        if index < videoProcessor.videos.count {
-            selectedVideo = videoProcessor.videos[index].url
-        }
-    }
-}
-
-private struct NumberShortcuts7to9: ViewModifier {
-    let videoProcessor: VideoProcessor
-    @Binding var selectedVideo: URL?
-    
-    func body(content: Content) -> some View {
-        content
-            .keyboardShortcut(KeyEquivalent("7"), modifiers: [.command])
-            .keyboardShortcut(KeyEquivalent("8"), modifiers: [.command])
-            .keyboardShortcut(KeyEquivalent("9"), modifiers: [.command])
-    }
-    
-    private func selectVideo(at index: Int) {
-        guard !videoProcessor.videos.isEmpty else { return }
-        if index < videoProcessor.videos.count {
-            selectedVideo = videoProcessor.videos[index].url
-        }
-    }
-    
-    private func selectLastVideo() {
-        guard !videoProcessor.videos.isEmpty else { return }
-        selectedVideo = videoProcessor.videos.last?.url
-    }
-}
-
-private struct DeleteShortcut: ViewModifier {
-    let videoProcessor: VideoProcessor
-    @Binding var videoToDelete: URL?
-    @Binding var showingDeleteConfirmation: Bool
-    @Binding var selectedVideo: URL?
-    
-    func body(content: Content) -> some View {
-        content
-            .keyboardShortcut(KeyEquivalent("d"), modifiers: [.command])
-    }
-    
-    private func handleDelete() {
-        if !videoProcessor.videos.isEmpty {
-            videoToDelete = selectedVideo ?? videoProcessor.videos[0].url
-            showingDeleteConfirmation = true
+            selectedVideo = videoProcessor.videos.last?.url
         }
     }
 }

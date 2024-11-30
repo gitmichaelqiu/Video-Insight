@@ -18,12 +18,9 @@ class VideoProcessor: ObservableObject {
         let id = UUID()
         let image: NSImage
         let timestamp: Double
-        var ocrText: String
+        let ocrText: String
         var summary: String? = nil
     }
-    
-    private var editedOCRTexts: [UUID: String] = [:]
-    private var originalOCRTexts: [UUID: String] = [:]
     
     func addVideo(url: URL) {
         DispatchQueue.main.async {
@@ -186,37 +183,5 @@ class VideoProcessor: ObservableObject {
                 self.videos.remove(at: index)
             }
         }
-    }
-    
-    func updateOCRText(for url: URL, frameId: UUID, text: String) {
-        // Store original text if not already stored
-        if originalOCRTexts[frameId] == nil {
-            if let videoIndex = videos.firstIndex(where: { $0.url == url }),
-               let frameIndex = videos[videoIndex].frames.firstIndex(where: { $0.id == frameId }) {
-                originalOCRTexts[frameId] = videos[videoIndex].frames[frameIndex].ocrText
-            }
-        }
-        
-        let originalText = originalOCRTexts[frameId]
-        // Update edited text only if different from original
-        if text != originalText {
-            editedOCRTexts[frameId] = text
-        } else {
-            editedOCRTexts.removeValue(forKey: frameId)
-        }
-        
-        // Update frame text
-        if let videoIndex = videos.firstIndex(where: { $0.url == url }),
-           let frameIndex = videos[videoIndex].frames.firstIndex(where: { $0.id == frameId }) {
-            videos[videoIndex].frames[frameIndex].ocrText = text
-        }
-    }
-    
-    func getEditedOCRText(for frameId: UUID) -> String? {
-        return editedOCRTexts[frameId]
-    }
-    
-    func getOriginalOCRText(for frameId: UUID) -> String? {
-        return originalOCRTexts[frameId]
     }
 }

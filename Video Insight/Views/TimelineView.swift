@@ -4,52 +4,47 @@ struct TimelineView: View {
     @ObservedObject var videoProcessor: VideoProcessor
     let selectedVideo: URL?
     @Binding var selectedFrame: VideoProcessor.VideoFrame?
-    let goToCurrentFrame: () -> Void
     
     var videoData: VideoProcessor.VideoData? {
-        videoProcessor.videos.first(where: { $0.url == selectedVideo })
+        selectedVideo.flatMap { url in
+            videoProcessor.videos.first(where: { $0.url == url })
+        }
     }
     
     var body: some View {
-        List {
+        Group {
             if let data = videoData {
                 if data.frames.isEmpty {
-                    Text("Processing video...")
+                    Text("No frames available")
                         .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
-                    ForEach(data.frames) { frame in
-                        TimelineFrameView(frame: frame, isSelected: frame.id == selectedFrame?.id)
-                            .onTapGesture {
-                                selectedFrame = frame
-                                if let url = selectedVideo {
-                                    videoProcessor.updateLastSelectedFrame(for: url, frameId: frame.id)
+                    ScrollView {
+                        LazyVStack(spacing: 12) {
+                            ForEach(data.frames) { frame in
+                                TimelineItemView(
+                                    frame: frame,
+                                    isSelected: frame.id == selectedFrame?.id
+                                )
+                                .onTapGesture {
+                                    selectedFrame = frame
                                 }
                             }
-                            .listRowInsets(EdgeInsets())
-                            .listRowBackground(frame.id == selectedFrame?.id ? Color.accentColor.opacity(0.1) : Color.clear)
+                        }
+                        .padding()
                     }
                 }
             } else {
-                Text("No video selected")
+                Text("Select a video")
                     .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
-        .onChange(of: selectedVideo) { newValue in
-            if let url = newValue,
-               let data = videoProcessor.videos.first(where: { $0.url == url }) {
-                if let lastSelectedId = data.lastSelectedFrameId,
-                   let lastFrame = data.frames.first(where: { $0.id == lastSelectedId }) {
-                    selectedFrame = lastFrame
-                } else if let firstFrame = data.frames.first {
-                    selectedFrame = firstFrame
-                    videoProcessor.updateLastSelectedFrame(for: url, frameId: firstFrame.id)
-                }
-            }
-        }
+        .frame(width: 200)
     }
 }
 
-struct TimelineFrameView: View {
+struct TimelineItemView: View {
     let frame: VideoProcessor.VideoFrame
     let isSelected: Bool
     
@@ -59,12 +54,15 @@ struct TimelineFrameView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: .infinity)
+                .cornerRadius(4)
             
             Text(timeString(from: frame.timestamp))
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .padding(6)
+        .background(isSelected ? Color.accentColor.opacity(0.1) : Color.clear)
+        .cornerRadius(8)
     }
     
     private func timeString(from seconds: Double) -> String {

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SettingsView: View {
     @ObservedObject var settings: Settings
-    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         Form {
@@ -19,11 +18,8 @@ struct SettingsView: View {
         }
         .padding()
         .frame(width: 300)
-        .onDisappear {
-            // Restore focus to the main window when settings is dismissed
-            if let mainWindow = NSApp.windows.first(where: { $0.isKeyWindow }) {
-                mainWindow.makeFirstResponder(mainWindow.contentView)
-            }
+        .onAppear {
+            NSApp.keyWindow?.makeFirstResponder(nil)
         }
     }
 } 

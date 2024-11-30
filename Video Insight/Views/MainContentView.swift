@@ -8,31 +8,12 @@ struct MainContentView: View {
     @ObservedObject var settings: Settings
     @State private var showingSettings = false
     @State private var showingSummary = false
-    @State private var player: AVPlayer? = nil
-    @State private var currentSummary: String? = nil
-    @State private var editedOCRText: String = ""
-    @State private var isEditing = false
+    @State private var currentPlayer: AVPlayer?
     
-    private var isTextModified: Bool {
-        if let originalText = videoProcessor.getOriginalOCRText(for: frame.id) {
-            return originalText != editedOCRText
-        }
-        return false
-    }
-    
-    func goToCurrentFrame() {
-        guard let player = player else { return }
-        
-        if let currentURL = (player.currentItem?.asset as? AVURLAsset)?.url,
-           currentURL != videoURL {
-            player.replaceCurrentItem(with: AVPlayerItem(url: videoURL!))
-        }
-        
-        let time = CMTime(seconds: frame.timestamp, preferredTimescale: 600)
-        player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero) { finished in
-            if finished {
-                player.pause()
-            }
+    private func goToFrame() {
+        if let player = currentPlayer {
+            player.seek(to: CMTime(seconds: frame.timestamp, preferredTimescale: 600))
+            player.pause()
         }
     }
     
@@ -43,9 +24,13 @@ struct MainContentView: View {
                 VStack {
                     if let url = videoURL {
                         VideoPlayerView(
-                            url: url,
-                            player: $player
+                            url: url, 
+                            currentTime: frame.timestamp,
+                            onSeek: { player in
+                                currentPlayer = player
+                            }
                         )
+                        .id(url)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.vertical, 20)
                     } else {
@@ -61,48 +46,16 @@ struct MainContentView: View {
                 // OCR Result
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("OCR")
+                        Text("OCR Result")
                             .font(.headline)
                         Spacer()
                         
-                        if isTextModified {
-                            Button(action: {
-                                if let originalText = videoProcessor.getOriginalOCRText(for: frame.id) {
-                                    editedOCRText = originalText
-                                    if let url = videoURL {
-                                        videoProcessor.updateOCRText(for: url, frameId: frame.id, text: originalText)
-                                    }
-                                }
-                            }) {
-                                HStack {
-                                    Image(systemName: "arrow.counterclockwise")
-                                    Text("Reset")
-                                }
-                            }
-                            .padding(.trailing, 8)
-                            .keyboardShortcut("r", modifiers: [.command, .shift])
-                            .help("⌘⇧R")
-                        }
-                        
-                        Button(action: { isEditing.toggle() }) {
-                            HStack {
-                                Image(systemName: isEditing ? "checkmark.circle.fill" : "pencil")
-                                Text(isEditing ? "Done" : "Edit")
-                            }
-                        }
-                        .padding(.trailing, 8)
-                        .keyboardShortcut("e", modifiers: .command)
-                        .help("⌘E")
-                        
-                        Button(action: goToCurrentFrame) {
-                            HStack {
-                                Image(systemName: "arrow.forward.to.line")
-                                Text("Jump")
-                            }
+                        Button(action: goToFrame) {
+                            Image(systemName: "arrow.forward.to.line")
+                            Text("Go to Frame")
                         }
                         .padding(.trailing, 8)
                         .keyboardShortcut("r", modifiers: .command)
-                        .help("⌘R")
                         
                         Button(action: {
                             NSPasteboard.general.clearContents()
@@ -110,53 +63,35 @@ struct MainContentView: View {
                                 NSPasteboard.general.setData(tiffData, forType: .tiff)
                             }
                         }) {
-                            HStack {
-                                Image(systemName: "photo.on.rectangle")
-                                Text("Copy Image")
-                            }
+                            Image(systemName: "photo.on.rectangle")
+                            Text("Copy Image")
                         }
                         .padding(.trailing, 8)
                         .keyboardShortcut("c", modifiers: [.option, .shift])
-                        .help("⌥⇧C")
                         
                         Button(action: {
                             NSPasteboard.general.clearContents()
-                            NSPasteboard.general.setString(editedOCRText, forType: .string)
+                            NSPasteboard.general.setString(frame.ocrText, forType: .string)
                         }) {
-                            HStack {
-                                Image(systemName: "doc.on.doc")
-                                Text("Copy Text")
-                            }
+                            Image(systemName: "doc.on.doc")
+                            Text("Copy Text")
                         }
                         .padding(.trailing, 8)
                         .keyboardShortcut("c", modifiers: [.command, .shift])
-                        .help("⌘⇧C")
                         
                         Button(action: { showingSummary.toggle() }) {
-                            HStack {
-                                Image(systemName: "text.quote")
-                                Text("Summarize")
-                            }
+                            Image(systemName: "text.quote")
+                            Text("Summarize")
                         }
                         .keyboardShortcut("s", modifiers: [.command, .shift])
-                        .help("⌘⇧S")
                     }
                     
                     ScrollView {
-                        if isEditing {
-                            TextEditor(text: $editedOCRText)
-                                .frame(maxWidth: .infinity, minHeight: 100)
-                                .padding()
-                                .background(Color.secondary.opacity(0.1))
-                                .cornerRadius(8)
-                        } else {
-                            Text(editedOCRText)
-                                .textSelection(.enabled)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding()
-                                .background(Color.secondary.opacity(0.1))
-                                .cornerRadius(8)
-                        }
+                        Text(frame.ocrText)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            .background(Color.secondary.opacity(0.1))
+                            .cornerRadius(8)
                     }
                 }
                 .frame(minHeight: 200)
@@ -165,16 +100,10 @@ struct MainContentView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             if showingSummary {
-                SummaryView(
-                    text: editedOCRText,
-                    existingSummary: currentSummary ?? frame.summary,
-                    autoGenerate: (currentSummary ?? frame.summary) == nil,
-                    settings: settings
-                ) { summary in
+                SummaryView(text: frame.ocrText, existingSummary: frame.summary, settings: settings) { summary in
                     if let url = videoURL {
                         Task {
                             await MainActor.run {
-                                currentSummary = summary
                                 videoProcessor.updateSummary(for: url, frameId: frame.id, summary: summary)
                             }
                         }
@@ -184,63 +113,13 @@ struct MainContentView: View {
             }
         }
         .onAppear {
-            editedOCRText = videoProcessor.getEditedOCRText(for: frame.id) ?? frame.ocrText
-            if let url = videoURL {
-                if videoProcessor.getEditedOCRText(for: frame.id) == nil {
-                    videoProcessor.updateOCRText(for: url, frameId: frame.id, text: frame.ocrText)
-                }
-            }
             showingSummary = frame.summary != nil
-            currentSummary = frame.summary
-            
-            if let url = videoURL, player == nil {
-                player = AVPlayer(url: url)
-                seekToCurrentFrame()
-            }
         }
         .onChange(of: frame.id) { _ in
-            editedOCRText = videoProcessor.getEditedOCRText(for: frame.id) ?? frame.ocrText
-            if let url = videoURL {
-                if videoProcessor.getEditedOCRText(for: frame.id) == nil {
-                    videoProcessor.updateOCRText(for: url, frameId: frame.id, text: frame.ocrText)
-                }
-            }
             showingSummary = frame.summary != nil
-            currentSummary = frame.summary
-            seekToCurrentFrame()
         }
         .onChange(of: frame.summary) { newValue in
             showingSummary = newValue != nil
-            currentSummary = newValue
-        }
-        .onChange(of: videoURL) { newURL in
-            if let url = newURL {
-                player = AVPlayer(url: url)
-                seekToCurrentFrame()
-            } else {
-                player = nil
-            }
-        }
-        .onChange(of: editedOCRText) { newValue in
-            if let url = videoURL {
-                videoProcessor.updateOCRText(for: url, frameId: frame.id, text: newValue)
-            }
-        }
-    }
-    
-    private func seekToCurrentFrame() {
-        guard let player = player else { return }
-        
-        if let currentURL = (player.currentItem?.asset as? AVURLAsset)?.url,
-           currentURL != videoURL {
-            player.replaceCurrentItem(with: AVPlayerItem(url: videoURL!))
-        }
-        
-        let time = CMTime(seconds: frame.timestamp, preferredTimescale: 600)
-        player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero) { finished in
-            if finished {
-                player.pause()
-            }
         }
     }
 }

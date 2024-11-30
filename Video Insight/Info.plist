@@ -33,5 +33,19 @@
             </array>
         </dict>
     </array>
+    <key>com.apple.security.cs.allow-jit</key>
+    <true/>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+    <key>com.apple.security.personal-information.photos-library</key>
+    <true/>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app needs access to process video frames</string>
+    <key>NSAppleEventsUsageDescription</key>
+    <string>This app needs access to process media files</string>
+    <key>NSVisualSearchUsageDescription</key>
+    <string>This app needs access to process video content</string>
 </dict>
 </plist> 
